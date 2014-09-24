@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet" />
+    <title>FastUpload</title>
+    @Styles.Render("~/content/fastupload-bundle")
+</head>
+<body>
+    <div style="max-height: 460px;width: 477px; overflow: auto">
+        @using (Html.BeginForm("Send", "Uploads", FormMethod.Post, new { id = "upload", enctype = "multipart/form-data" }))
+        {
+            <div id="drop">
+                Arraste o(s) arquivo(s) aqui
+                <br />
+                <a>Selecionar</a>
+                <input type="file" name="upl" multiple />
+            </div>
+            <div class="file-list">
+                <ul></ul>
+            </div>
+        }
+    </div>
+    @Scripts.Render("~/scripts/bundle")
+    <script type="text/javascript">
+        $(function () {
+            fastUpload.uploads.index();
+        });
+    </script>
+</body>
+</html>
