@@ -31,6 +31,11 @@
         public string Extensions { get; set; }
 
         /// <summary>
+        ///     Get or set component
+        /// </summary>
+        public string Component { get; set; }
+
+        /// <summary>
         ///     Get or set <see cref="UploadSettingMessage" />
         /// </summary>
         public UploadSettingMessage Message { get; set; }

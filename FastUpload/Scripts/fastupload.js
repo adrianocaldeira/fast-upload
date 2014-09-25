@@ -111,8 +111,10 @@
                 done: function (e, data) {
                     files.push(data.result[0]);
                 },
-                stop: function() {
-                    console.log(files);
+                stop: function () {
+                    if (window.parent) {
+                        window.parent["file-upload-dialog-" + settings.component].call(files);
+                    }
                 },
                 fail: function (e, data) {
                     data.context.addClass("error");

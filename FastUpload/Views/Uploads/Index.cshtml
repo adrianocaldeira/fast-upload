@@ -10,30 +10,30 @@
     @Styles.Render("~/content/fastupload-bundle")
 </head>
 <body>
-    <div style="max-height: 460px;width: 477px; overflow: auto">
-        @using (Html.BeginForm("Send", "Uploads", FormMethod.Post, new { id = "upload", enctype = "multipart/form-data" }))
-        {
-            @Html.HiddenFor(x => x.Directory)
-            @Html.HiddenFor(x => x.Extensions)
-            @Html.HiddenFor(x => x.LimitFileSize)
-            @Html.HiddenFor(x => x.Message.FileSizeExceed)
-            <div id="drop">
-                Arraste o(s) arquivo(s) aqui
-                <br />
-                <a>Selecionar</a>
-                <input type="file" name="upl" multiple />
-            </div>
-            <div class="file-list">
-                <ul></ul>
-            </div>
-        }
+@using (Html.BeginForm("Send", "Uploads", FormMethod.Post, new { id = "upload", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(x => x.Directory)
+    @Html.HiddenFor(x => x.Extensions)
+    @Html.HiddenFor(x => x.LimitFileSize)
+    @Html.HiddenFor(x => x.Message.FileSizeExceed)
+    @Html.HiddenFor(x => x.Message.ExtensionInvalid)
+    <div id="drop">
+        Arraste o(s) arquivo(s) aqui
+        <br />
+        <a>Selecionar</a>
+        <input type="file" name="upl" multiple />
     </div>
+    <div class="file-list">
+        <ul></ul>
+    </div>
+}
     @Scripts.Render("~/scripts/bundle")
     <script type="text/javascript">
     $(function () {
         fastUpload.uploads.index({
             "limitFileSize": "@Model.LimitFileSize",
             "extensions": "@Model.Extensions",
+            "component": "@Model.Component",
             "message": {
                 "fileSizeExceed": "@Model.Message.FileSizeExceed",
                 "extensionInvalid": "@Model.Message.ExtensionInvalid" 
