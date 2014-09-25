@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model FastUpload.Models.UploadSetting
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">
@@ -12,6 +13,9 @@
     <div style="max-height: 460px;width: 477px; overflow: auto">
         @using (Html.BeginForm("Send", "Uploads", FormMethod.Post, new { id = "upload", enctype = "multipart/form-data" }))
         {
+            @Html.HiddenFor(x => x.Directory)
+            @Html.HiddenFor(x => x.Extensions)
+            @Html.HiddenFor(x => x.LimitFileSize)
             <div id="drop">
                 Arraste o(s) arquivo(s) aqui
                 <br />
@@ -25,9 +29,12 @@
     </div>
     @Scripts.Render("~/scripts/bundle")
     <script type="text/javascript">
-        $(function () {
-            fastUpload.uploads.index();
+    $(function () {
+        fastUpload.uploads.index({
+            "limitFileSize": "@Model.LimitFileSize",
+            "extensions": "@Model.Extensions"
         });
+    });
     </script>
 </body>
 </html>

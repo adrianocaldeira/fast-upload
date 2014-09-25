@@ -15,7 +15,7 @@
         return (bytes / 1000).toFixed(2) + " KB";
     },
     uploads: {
-        index: function () {
+        index: function (settings) {
             var $ul = $("#upload ul");
 
             $("#drop a").click(function () {
@@ -26,23 +26,28 @@
                 dropZone: $("#drop"),
                 add: function (e, data) {
                     var file = data.files[0];
-                    
-                    if (file.size > 10240) {
-                        alert("O tamanho do arquivo " + file.name + " é maior que o tamanho máximo permitido");
-                    } else {
+                    var isValid = function() {
+                        if (file.size > settings.limitFileSize) {
+                            alert("O tamanho do arquivo " + file.name + " é maior que o tamanho máximo permitido");
+                            return false;
+                        }
+                        return true;
+                    };
+
+                    if (isValid()) {
                         var $template = $("<li></li>").addClass("working")
-                                                .append(
-                                                    $("<input/>").attr({
-                                                        "type": "text",
-                                                        "value": "0",
-                                                        "data-width": "48",
-                                                        "data-height": "48",
-                                                        "data-fgColor": "#0788a5",
-                                                        "data-readOnly": "1",
-                                                        "data-bgColor": "#3e4043"
-                                                    }))
-                                                .append($("<p></p>"))
-                                                .append($("<span></span>"));
+                            .append(
+                                $("<input/>").attr({
+                                    "type": "text",
+                                    "value": "0",
+                                    "data-width": "48",
+                                    "data-height": "48",
+                                    "data-fgColor": "#0788a5",
+                                    "data-readOnly": "1",
+                                    "data-bgColor": "#3e4043"
+                                }))
+                            .append($("<p></p>"))
+                            .append($("<span></span>"));
 
                         $template.find("p").text(file.name).append("<i>" + fastUpload.formatFileSize(file.size) + "</i>");
 
@@ -50,12 +55,12 @@
 
                         $template.find("input").knob();
 
-                        $template.find("span").click(function () {
+                        $template.find("span").click(function() {
                             if ($template.hasClass("working")) {
                                 jqXHR.abort();
                             }
 
-                            $template.fadeOut(function () {
+                            $template.fadeOut(function() {
                                 $template.remove();
                             });
                         });

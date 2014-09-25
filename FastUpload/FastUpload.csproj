@@ -139,6 +139,7 @@
     </Compile>
     <Compile Include="JsonResult.cs" />
     <Compile Include="Models\File.cs" />
+    <Compile Include="Models\UploadSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
