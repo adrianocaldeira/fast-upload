@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Web;
 
 namespace FastUpload.Models
 {
@@ -28,7 +29,7 @@ namespace FastUpload.Models
         public string Type { get; set; }
 
         /// <summary>
-        /// Upload file
+        ///     Upload file
         /// </summary>
         /// <param name="baseDirectory"></param>
         /// <param name="file"></param>
@@ -43,9 +44,9 @@ namespace FastUpload.Models
             var storageDirectory = System.IO.Path.Combine(Settings.StoragePath, directory);
             var path = System.IO.Path.Combine(directory, file.FileName);
 
-            if (!System.IO.Directory.Exists(storageDirectory))
+            if (!Directory.Exists(storageDirectory))
             {
-                System.IO.Directory.CreateDirectory(storageDirectory);
+                Directory.CreateDirectory(storageDirectory);
             }
 
             file.SaveAs(System.IO.Path.Combine(Settings.StoragePath, path));
@@ -59,6 +60,11 @@ namespace FastUpload.Models
             };
         }
 
+        /// <summary>
+        ///     Get file path with storage directory
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public static string GetFilePath(string file)
         {
             return System.IO.Path.Combine(Settings.StoragePath, file);

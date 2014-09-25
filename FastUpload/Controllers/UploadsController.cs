@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Web.Mvc;
 using FastUpload.Models;
-using File = FastUpload.Models.File;
 
 namespace FastUpload.Controllers
 {
+    [RoutePrefix("api/uploads")]
     public class UploadsController : Controller
     {
+        [Route]
         [HttpGet]
         public ActionResult Index(UploadSetting setting)
         {
@@ -14,16 +15,12 @@ namespace FastUpload.Controllers
         }
 
         [HttpPost]
+        [Route("send")]
         public ActionResult Send(UploadSetting setting)
         {
-            var files = new List<File>();
-
-            foreach (string file in Request.Files)
-            {
-                var fileUploaded = Models.File.Upload(setting.Directory, Request.Files[file]);
-
-                if (fileUploaded != null) files.Add(fileUploaded);
-            }
+            var files = Request.Files.Cast<string>().Select(
+                file => Models.File.Upload(setting.Directory, Request.Files[file])
+            ).Where(fileUploaded => fileUploaded != null).ToList();
 
             return new JsonResult{Data = files};
         }

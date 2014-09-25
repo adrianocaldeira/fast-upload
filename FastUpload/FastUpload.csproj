@@ -136,7 +136,7 @@
     <Compile Include="App_Start\ContentyTypeConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="ContentyType.cs" />
+    <Compile Include="ContentType.cs" />
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\UploadsController.cs" />
     <Compile Include="Global.asax.cs">

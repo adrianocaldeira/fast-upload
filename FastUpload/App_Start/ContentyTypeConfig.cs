@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace FastUpload
 {
@@ -6,7 +7,7 @@ namespace FastUpload
     {
         public static void RegisterTypes(string file)
         {
-            ContentyType.Types = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ContentyType>>(System.IO.File.ReadAllText(file));
+            ContentType.Types = JsonConvert.DeserializeObject<List<ContentType>>(System.IO.File.ReadAllText(file));
         }
     }
 }
