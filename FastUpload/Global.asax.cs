@@ -13,6 +13,7 @@ namespace FastUpload
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            ContentyTypeConfig.RegisterTypes(Server.MapPath("~/App_Data/ContentTypes.json"));
         }
     }
 }

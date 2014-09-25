@@ -1,5 +1,5 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
+
 namespace FastUpload.Models
 {
     /// <summary>
@@ -27,19 +27,25 @@ namespace FastUpload.Models
         /// </summary>
         public string Type { get; set; }
 
+        /// <summary>
+        /// Upload file
+        /// </summary>
+        /// <param name="baseDirectory"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public static File Upload(string baseDirectory, HttpPostedFileBase file)
         {
             if (file.ContentLength.Equals(0)) return null;
 
             if (baseDirectory == null) baseDirectory = "";
 
-            var newFileName = String.Concat(Guid.NewGuid().ToString("N"), System.IO.Path.GetExtension(file.FileName));
-            var directory = System.IO.Path.Combine(Settings.StoragePath, baseDirectory);
-            var path = System.IO.Path.Combine(baseDirectory, newFileName);
+            var directory = baseDirectory.Replace("/", @"\");
+            var storageDirectory = System.IO.Path.Combine(Settings.StoragePath, directory);
+            var path = System.IO.Path.Combine(directory, file.FileName);
 
-            if (!System.IO.Directory.Exists(directory))
+            if (!System.IO.Directory.Exists(storageDirectory))
             {
-                System.IO.Directory.CreateDirectory(directory);
+                System.IO.Directory.CreateDirectory(storageDirectory);
             }
 
             file.SaveAs(System.IO.Path.Combine(Settings.StoragePath, path));
@@ -47,10 +53,15 @@ namespace FastUpload.Models
             return new File
             {
                 Name = file.FileName,
-                Path = path,
+                Path = path.Replace(@"\", "/"),
                 Size = file.ContentLength,
                 Type = file.ContentType
             };
+        }
+
+        public static string GetFilePath(string file)
+        {
+            return System.IO.Path.Combine(Settings.StoragePath, file);
         }
     }
 }

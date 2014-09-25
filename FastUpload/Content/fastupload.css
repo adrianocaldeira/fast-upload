@@ -116,16 +116,23 @@ section, footer, header, aside{
     display: none;
 }
 
-#upload ul li p{
+#upload ul li p, #upload ul li p.invalid{
     width: 144px;
     overflow: hidden;
     white-space: nowrap;
     color: #EEE;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: normal;
     position: absolute;
     top: 20px;
     left: 100px;
+}
+
+#upload ul li p.invalid {
+    width: 388px !important;
+    color: red !important;
+    left: 10px !important;   
+    white-space: normal !important;
 }
 
 #upload ul li i{
@@ -133,6 +140,11 @@ section, footer, header, aside{
     font-style:normal;
     color:#7f7f7f;
     display:block;
+}
+
+#upload ul li p.invalid i {
+    display:inline !important;
+    margin-left: 10px;
 }
 
 #upload ul li canvas{

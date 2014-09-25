@@ -16,6 +16,7 @@
             @Html.HiddenFor(x => x.Directory)
             @Html.HiddenFor(x => x.Extensions)
             @Html.HiddenFor(x => x.LimitFileSize)
+            @Html.HiddenFor(x => x.Message.FileSizeExceed)
             <div id="drop">
                 Arraste o(s) arquivo(s) aqui
                 <br />
@@ -32,7 +33,11 @@
     $(function () {
         fastUpload.uploads.index({
             "limitFileSize": "@Model.LimitFileSize",
-            "extensions": "@Model.Extensions"
+            "extensions": "@Model.Extensions",
+            "message": {
+                "fileSizeExceed": "@Model.Message.FileSizeExceed",
+                "extensionInvalid": "@Model.Message.ExtensionInvalid" 
+            }
         });
     });
     </script>

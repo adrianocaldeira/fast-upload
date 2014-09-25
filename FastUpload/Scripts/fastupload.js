@@ -17,6 +17,7 @@
     uploads: {
         index: function (settings) {
             var $ul = $("#upload ul");
+            var files = [];
 
             $("#drop a").click(function () {
                 $(this).parent().find('input').trigger("click");
@@ -26,15 +27,32 @@
                 dropZone: $("#drop"),
                 add: function (e, data) {
                     var file = data.files[0];
-                    var isValid = function() {
-                        if (file.size > settings.limitFileSize) {
-                            alert("O tamanho do arquivo " + file.name + " é maior que o tamanho máximo permitido");
-                            return false;
-                        }
-                        return true;
+                    var getExtension = function () {
+                        return (/[.]/.exec(file.name)) ? /[^.]+$/.exec(file.name)[0] : undefined;
                     };
+                    var validateFile = function () {
+                        var message = "";
+                        var valid = true;
+                        var extension = getExtension();
 
-                    if (isValid()) {
+                        if (file.size > parseInt(settings.limitFileSize, 10)) {
+                            message = String.format(settings.message.fileSizeExceed, file.name, fastUpload.formatFileSize(parseInt(settings.limitFileSize, 10)));
+                            valid = false;
+                        }
+                        
+                        if (extension === undefined || (settings.extensions !== "*" && $.inArray(extension, settings.extensions.split(";")) === -1)) {
+                            message = String.format(settings.message.extensionInvalid, file.name, settings.extensions);
+                            valid = false;
+                        }
+
+                        return {
+                            "message": message,
+                            "valid": valid
+                        };
+                    };
+                    var validade = validateFile();
+                    
+                    if (validade.valid) {
                         var $template = $("<li></li>").addClass("working")
                             .append(
                                 $("<input/>").attr({
@@ -64,7 +82,23 @@
                                 $template.remove();
                             });
                         });
+
                         var jqXHR = data.submit();
+                    } else {
+                        console.log(file);
+                        var $templateInvalid = $("<li></li>").addClass("working")
+                            .append($("<p></p>").addClass("invalid"))
+                            .append($("<span></span>"));
+
+                        $templateInvalid.find("p").text(validade.message).append("<i>" + fastUpload.formatFileSize(file.size) + "</i>");
+
+                        data.context = $templateInvalid.appendTo($ul);
+
+                        $templateInvalid.find("span").click(function () {
+                            $templateInvalid.fadeOut(function () {
+                                $templateInvalid.remove();
+                            });
+                        });
                     }
                 },
                 progress: function (e, data) {
@@ -73,6 +107,12 @@
                     if (progress == 100) {
                         data.context.removeClass("working");
                     }
+                },
+                done: function (e, data) {
+                    files.push(data.result[0]);
+                },
+                stop: function() {
+                    console.log(files);
                 },
                 fail: function (e, data) {
                     data.context.addClass("error");
