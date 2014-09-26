@@ -1,0 +1,55 @@
+﻿
+<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+<script src="~/Scripts/jquery-ui.min-1.11.1.js"></script>
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(function () {
+        $.fastUpload = function (options) {
+            var defaults = $.extend(true, {
+                url: undefined,
+                width: 477,
+                height: 470,
+                uploaded: function (){}
+            }, options);
+            var component = Math.round(new Date().getTime() + (Math.random() * 100));
+            var getUrl = function() {
+                return defaults.url + "?component=" + component;
+            };
+            var $dialog = $("#fast-upload-dialog").length === 0 ?
+                $("<div></div>").attr("id", "fast-upload-dialog") : $("#fast-upload-dialog");
+            var $iframe = $("<iframe></iframe>").attr({
+                "src": getUrl(),
+                "width": defaults.width,
+                "height": defaults.height,
+                "frameborder": 0,
+                "marginheight": 0,
+                "marginwidth": 0,
+                "scrolling": "auto"
+            });
+
+            $dialog.empty().append($iframe);
+                        
+            $dialog.appendTo($("body"));
+
+            window["fast-upload-dialog-" + component] = function (data) {
+                defaults.uploaded.call(data);
+            };
+        };
+
+        $.fn.fastUpload = function() {
+            return this.each(function() {
+                $(this).on("click", function(e) {
+                    e.preventDefault();
+                    $.fastUpload({
+                        url: $(this).attr("href")
+                    });
+                });
+            });
+        };
+
+
+        $("#open").fastUpload();
+
+    });
+</script>
+<a href="http://localhost:61670/api/uploads" id="open">Abrir</a>
