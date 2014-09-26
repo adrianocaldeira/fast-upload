@@ -12,8 +12,11 @@
                 uploaded: function (){}
             }, options);
             var component = Math.round(new Date().getTime() + (Math.random() * 100));
-            var getUrl = function() {
-                return defaults.url + "?component=" + component;
+            var getUrl = function () {
+                var url = defaults.url;
+                url += "?component=" + component;
+                url += "&origin=" + location.hostname;
+                return url;
             };
             var $dialog = $("#fast-upload-dialog").length === 0 ?
                 $("<div></div>").attr("id", "fast-upload-dialog") : $("#fast-upload-dialog");

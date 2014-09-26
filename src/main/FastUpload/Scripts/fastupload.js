@@ -85,7 +85,6 @@
 
                         var jqXHR = data.submit();
                     } else {
-                        console.log(file);
                         var $templateInvalid = $("<li></li>").addClass("working")
                             .append($("<p></p>").addClass("invalid"))
                             .append($("<span></span>"));
