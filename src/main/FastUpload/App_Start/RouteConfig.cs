@@ -11,11 +11,11 @@ namespace FastUpload
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapMvcAttributeRoutes();
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //);
 
             routes.MapRoute(
                 name: "Files-Download",
@@ -26,7 +26,7 @@ namespace FastUpload
             routes.MapRoute(
                 name: "Files-Read",
                 url: "{*file}",
-                defaults: new {controller = "Files", action = "Read"}
+                defaults: new { controller = "Files", action = "Read" }
             );
         }
     }

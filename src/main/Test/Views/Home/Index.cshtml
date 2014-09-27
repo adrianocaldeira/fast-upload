@@ -90,13 +90,18 @@
         };
 
         $("#open").fastUpload({
-            directory: "pasta_exemplo",
+            directory: "@string.Format("storage/{0:yyyy}/{0:MM}/{0:dd}", DateTime.Today)",
             extensions: "jpg;png;bak",
             message: {
                 fileSizeExceed: "O arquivo {0} excede o limite permitido de {1} por arquivo.",
                 extensionInvalid: "A extensão do arquivo {0} é inválida. As extensões permitidas são: {1}."
             },
-            uploaded: function() {
+            uploaded: function () {
+                $.each(this, function() {
+                    $("<li></li>")
+                        .append($("<a></a>").attr("href", "http://localhost:61670/downloads/" + this.path).html(this.name))
+                        .appendTo($("#list"));
+                });
                 console.log(this);
             }
         });
@@ -104,3 +109,6 @@
     });
 </script>
 <a href="http://localhost:61670/api/uploads" id="open">Abrir</a>
+<ul id="list">
+    
+</ul>
