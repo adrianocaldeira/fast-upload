@@ -91,6 +91,7 @@
 
         $("#open").fastUpload({
             directory: "@string.Format("storage/{0:yyyy}/{0:MM}/{0:dd}", DateTime.Today)",
+            limitFileSize: 40000000,
             extensions: "jpg;png;bak",
             message: {
                 fileSizeExceed: "O arquivo {0} excede o limite permitido de {1} por arquivo.",

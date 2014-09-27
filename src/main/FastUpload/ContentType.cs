@@ -38,7 +38,7 @@ namespace FastUpload
         public static string Get(string file)
         {
             var contentyType = Types.FirstOrDefault(x => x.Extension == System.IO.Path.GetExtension(file));
-            return contentyType == null ? string.Empty : contentyType.Type;
+            return contentyType == null ? "application/octet-stream" : contentyType.Type;
         }
     }
 }

@@ -558,5 +558,6 @@
     {extension:".xtp", type: "application/octet-stream"},
     {extension:".xwd", type: "image/x-xwindowdump"},
     {extension:".z", type: "application/x-compress"},
-    {extension:".zip", type: "application/x-zip-compressed"}
+    {extension:".zip", type: "application/x-zip-compressed"},
+    {extension:".bak", type: "application/octet-stream"},
 ]
