@@ -18,13 +18,14 @@
     @Html.HiddenFor(x => x.Message.FileSizeExceed)
     @Html.HiddenFor(x => x.Message.ExtensionInvalid)
     <div id="drop">
-        Arraste o(s) arquivo(s) aqui
+        Arraste o(s) arquivo(s) aqui ou clique no botão
         <br />
         <a>Selecionar</a>
         <input type="file" name="upl" multiple />
     </div>
     <div class="file-list">
-        <ul></ul>
+        <ul>
+        </ul>
     </div>
 }
     @Scripts.Render("~/scripts/bundle")
@@ -33,10 +34,10 @@
         fastUpload.uploads.index({
             "limitFileSize": "@Model.LimitFileSize",
             "extensions": "@Model.Extensions",
-            "component": "@Model.Component",
+            "targetOrigin": "@Model.TargetOrigin",
             "message": {
-                "fileSizeExceed": "@Model.Message.FileSizeExceed",
-                "extensionInvalid": "@Model.Message.ExtensionInvalid" 
+                "fileSizeExceed": "@Html.Raw(Model.Message.FileSizeExceed)",
+                "extensionInvalid": "@Html.Raw(Model.Message.ExtensionInvalid)" 
             }
         });
     });

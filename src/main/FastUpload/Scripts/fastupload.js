@@ -112,7 +112,7 @@
                 },
                 stop: function () {
                     if (window.parent) {
-                        window.parent["file-upload-dialog-" + settings.component].call(files);
+                        parent.postMessage({ type: "success", data: files }, settings.targetOrigin);
                     }
                 },
                 fail: function (e, data) {

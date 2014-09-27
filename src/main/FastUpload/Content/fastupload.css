@@ -49,10 +49,11 @@ section, footer, header, aside{
     background-image:-moz-linear-gradient(top, #373a3d, #313437);
     background-image:linear-gradient(top, #373a3d, #313437);
     width:400px;
-    min-height: 400px;
+    min-height: 475px;
     padding:30px;
     border-radius:0;
     margin:0;
+    padding-bottom: 10px;
 }
 
 #drop{
@@ -97,6 +98,8 @@ section, footer, header, aside{
     margin:0 -30px;
     border-top:1px solid #2b2e31;
     border-bottom:1px solid #3d4043;
+    overflow: auto;
+    max-height: 252px;
 }
 
 #upload ul li{

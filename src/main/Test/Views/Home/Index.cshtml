@@ -7,51 +7,99 @@
         $.fastUpload = function (options) {
             var defaults = $.extend(true, {
                 url: undefined,
-                width: 477,
-                height: 470,
+                width: 480,
+                height: 595,
+                directory: "",
+                limitFileSize: 4000000, //4MB
+                extensions: "*",
+                message: {
+                    fileSizeExceed: "The file {0} exceeds limit allowed of {1} by file.",
+                    extensionInvalid: "The extension of file {0} is invalid. The extensions are allowed {1}."
+                },
                 uploaded: function (){}
             }, options);
-            var component = Math.round(new Date().getTime() + (Math.random() * 100));
             var getUrl = function () {
                 var url = defaults.url;
-                url += "?component=" + component;
-                url += "&origin=" + location.hostname;
+                url += "?targetOrigin=" + encodeURIComponent(location.href);
+                url += "&directory=" + encodeURIComponent(defaults.directory);
+                url += "&limitFileSize=" + defaults.limitFileSize;
+                url += "&extensions=" + defaults.extensions.toLowerCase();
+                url += "&message.fileSizeExceed=" + encodeURIComponent(defaults.message.fileSizeExceed);
+                url += "&message.extensionInvalid=" + encodeURIComponent(defaults.message.extensionInvalid);
                 return url;
             };
             var $dialog = $("#fast-upload-dialog").length === 0 ?
                 $("<div></div>").attr("id", "fast-upload-dialog") : $("#fast-upload-dialog");
             var $iframe = $("<iframe></iframe>").attr({
                 "src": getUrl(),
-                "width": defaults.width,
-                "height": defaults.height,
+                "width": defaults.width-20,
+                "height": defaults.height - 70,
                 "frameborder": 0,
                 "marginheight": 0,
                 "marginwidth": 0,
-                "scrolling": "auto"
+                "scrolling": "no"
             });
 
-            $dialog.empty().append($iframe);
-                        
-            $dialog.appendTo($("body"));
-
-            window["fast-upload-dialog-" + component] = function (data) {
-                defaults.uploaded.call(data);
-            };
+            $dialog.empty().css({
+                    "display": "none",
+                    "width": defaults.width,
+                    "height": defaults.height - 50,
+                    "padding": 10,
+                    "overflow": "hidden"
+                })
+                .append($iframe)
+                .appendTo($("body"))
+                .dialog({
+                    modal: true,
+                    width: defaults.width,
+                    height: defaults.height,
+                    draggable: false,
+                    resizable: false,
+                    open: function() {
+                        $dialog.prev(".ui-dialog-titlebar").remove();
+                        $dialog.closest(".ui-dialog").css({
+                            "border": 0,
+                            "padding": 0,
+                            "top": 30
+                        });
+                    },
+                    beforeClose: function() {
+                        $dialog.remove();
+                    }
+                });
+            
+            $(window).off("message").on("message", function (e) {
+                var parts = defaults.url.split("/");
+                var target = parts[0] + "//" + parts[2];
+                if (target === e.originalEvent.origin) {
+                    defaults.uploaded.call(e.originalEvent.data.data);
+                    $dialog.remove();
+                }
+            });
         };
 
-        $.fn.fastUpload = function() {
+        $.fn.fastUpload = function (options) {
             return this.each(function() {
                 $(this).on("click", function(e) {
                     e.preventDefault();
-                    $.fastUpload({
-                        url: $(this).attr("href")
-                    });
+                    $.fastUpload($.extend(true, {
+                         url: $(this).attr("href")
+                    }, options));
                 });
             });
         };
 
-
-        $("#open").fastUpload();
+        $("#open").fastUpload({
+            directory: "pasta_exemplo",
+            extensions: "jpg;png;bak",
+            message: {
+                fileSizeExceed: "O arquivo {0} excede o limite permitido de {1} por arquivo.",
+                extensionInvalid: "A extensão do arquivo {0} é inválida. As extensões permitidas são: {1}."
+            },
+            uploaded: function() {
+                console.log(this);
+            }
+        });
 
     });
 </script>

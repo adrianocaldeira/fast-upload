@@ -31,9 +31,9 @@
         public string Extensions { get; set; }
 
         /// <summary>
-        ///     Get or set component
+        /// Get or set target origin domain
         /// </summary>
-        public string Component { get; set; }
+        public string TargetOrigin { get; set; }
 
         /// <summary>
         ///     Get or set <see cref="UploadSettingMessage" />
