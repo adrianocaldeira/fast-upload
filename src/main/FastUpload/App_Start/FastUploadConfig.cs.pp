@@ -7,8 +7,8 @@ using Microsoft.Owin;
 using Newtonsoft.Json;
 using Owin;
 
-[assembly: OwinStartup(typeof(FastUpload.FastUploadConfig))]
-namespace FastUpload
+[assembly: OwinStartup(typeof($rootnamespace$.FastUploadConfig))]
+namespace $rootnamespace$
 {
     public class FastUploadConfig
     {
