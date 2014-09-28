@@ -17,6 +17,7 @@
     @Html.HiddenFor(x => x.LimitFileSize)
     @Html.HiddenFor(x => x.Message.FileSizeExceed)
     @Html.HiddenFor(x => x.Message.ExtensionInvalid)
+    @Html.HiddenFor(x => x.Token)
     <div id="drop">
         Arraste o(s) arquivo(s) aqui ou clique no botão
         <br />
@@ -28,7 +29,7 @@
         </ul>
     </div>
 }
-    @Scripts.Render("~/scripts/bundle")
+    @Scripts.Render("~/scripts/fastupload-bundle")
     <script type="text/javascript">
     $(function () {
         fastUpload.uploads.index({

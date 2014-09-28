@@ -21,6 +21,11 @@
         public string Directory { get; set; }
 
         /// <summary>
+        /// Get or set token
+        /// </summary>
+        public string Token { get; set; }
+
+        /// <summary>
         ///     Get or set limit file siz
         /// </summary>
         public int LimitFileSize { get; set; }

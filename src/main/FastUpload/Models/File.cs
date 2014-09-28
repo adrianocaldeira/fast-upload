@@ -41,7 +41,7 @@ namespace FastUpload.Models
             if (baseDirectory == null) baseDirectory = "";
 
             var directory = baseDirectory.Replace("/", @"\");
-            var storageDirectory = System.IO.Path.Combine(Settings.StoragePath, directory);
+            var storageDirectory = System.IO.Path.Combine(FastUploadSettings.StoragePath, directory);
             var path = System.IO.Path.Combine(directory, file.FileName);
 
             if (!Directory.Exists(storageDirectory))
@@ -49,7 +49,7 @@ namespace FastUpload.Models
                 Directory.CreateDirectory(storageDirectory);
             }
 
-            file.SaveAs(System.IO.Path.Combine(Settings.StoragePath, path));
+            file.SaveAs(System.IO.Path.Combine(FastUploadSettings.StoragePath, path));
 
             return new File
             {
@@ -67,7 +67,7 @@ namespace FastUpload.Models
         /// <returns></returns>
         public static string GetFilePath(string file)
         {
-            return System.IO.Path.Combine(Settings.StoragePath, file);
+            return System.IO.Path.Combine(FastUploadSettings.StoragePath, file);
         }
     }
 }

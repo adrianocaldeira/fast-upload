@@ -4,6 +4,7 @@
 <link href="~/Content/themes/base/all.css" rel="stylesheet" />
 <script type="text/javascript">
     $(function () {
+        "use strict";
         $.fastUpload = function (options) {
             var defaults = $.extend(true, {
                 url: undefined,
@@ -11,6 +12,7 @@
                 height: 595,
                 directory: "",
                 limitFileSize: 4000000, //4MB
+                token: "",
                 extensions: "*",
                 message: {
                     fileSizeExceed: "The file {0} exceeds limit allowed of {1} by file.",
@@ -21,6 +23,7 @@
             var getUrl = function () {
                 var url = defaults.url;
                 url += "?targetOrigin=" + encodeURIComponent(location.href);
+                url += "&token=" + defaults.token;
                 url += "&directory=" + encodeURIComponent(defaults.directory);
                 url += "&limitFileSize=" + defaults.limitFileSize;
                 url += "&extensions=" + defaults.extensions.toLowerCase();
@@ -90,6 +93,7 @@
         };
 
         $("#open").fastUpload({
+            token: "a7d4efa2-307b-4511-a85c-ddb09bac21ca",
             directory: "@string.Format("storage/{0:yyyy}/{0:MM}/{0:dd}", DateTime.Today)",
             limitFileSize: 40000000,
             extensions: "jpg;png;bak",
@@ -100,7 +104,7 @@
             uploaded: function () {
                 $.each(this, function() {
                     $("<li></li>")
-                        .append($("<a></a>").attr("href", "http://localhost:61670/downloads/" + this.path).html(this.name))
+                        .append($("<a></a>").attr("href", "http://domain1/downloads/" + this.path).html(this.name))
                         .appendTo($("#list"));
                 });
                 console.log(this);
@@ -109,7 +113,7 @@
 
     });
 </script>
-<a href="http://localhost:61670/api/uploads" id="open">Abrir</a>
+<a href="http://domain1/api/uploads" id="open">Abrir</a>
 <ul id="list">
     
 </ul>

@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using FastUpload.Filters;
 using FastUpload.Models;
 
 namespace FastUpload.Controllers
 {
+    [FastUploadSecurity]
     [RoutePrefix("api/uploads")]
     public class UploadsController : Controller
     {
