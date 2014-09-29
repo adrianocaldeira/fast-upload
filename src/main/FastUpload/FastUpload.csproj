@@ -137,16 +137,19 @@
     <None Include="App_Start\FastUploadConfig.cs.pp" />
     <Compile Include="App_Start\FastUploadConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <None Include="ContentType.cs.pp" />
     <Compile Include="ContentType.cs" />
     <None Include="Controllers\FilesController.cs.pp" />
     <Compile Include="Controllers\FilesController.cs" />
     <None Include="Controllers\UploadsController.cs.pp" />
     <Compile Include="Controllers\UploadsController.cs" />
     <None Include="Filters\FastUploadSecurityAttribute.cs.pp" />
+    <None Include="FastUploadSettings.cs.pp" />
     <Compile Include="Filters\FastUploadSecurityAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <None Include="JsonResult.cs.pp" />
     <Compile Include="JsonResult.cs" />
     <None Include="Models\File.cs.pp" />
     <Compile Include="Models\File.cs" />
@@ -162,6 +165,8 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Views\Uploads\Index.cshtml.pp" />
+    <None Include="web.config.transform" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

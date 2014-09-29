@@ -18,7 +18,7 @@ namespace FastUpload.Filters
                 return;
             }
 
-            if (filterContext.HttpContext.Request.UrlReferrer == null || !filterContext.HttpContext.Request.UrlReferrer.Host.Equals(filterContext.HttpContext.Request.Url.Host) 
+            if (filterContext.HttpContext.Request.UrlReferrer != null && !filterContext.HttpContext.Request.UrlReferrer.Host.Equals(filterContext.HttpContext.Request.Url.Host) 
                 && !FastUploadSettings.Domains.Contains(filterContext.HttpContext.Request.UrlReferrer.Host))
             {
                 filterContext.Result = new HttpUnauthorizedResult("Domain not allowed");

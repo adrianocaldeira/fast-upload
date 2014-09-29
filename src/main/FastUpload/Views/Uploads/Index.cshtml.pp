@@ -1,5 +1,5 @@
 ﻿@using System.Web.Optimization;
-@model FastUpload.Models.UploadSetting
+@model $rootnamespace$.Models.UploadSetting
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

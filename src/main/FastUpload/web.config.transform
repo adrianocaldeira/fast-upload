@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<configuration>
+  <appSettings>
+    <add key="FastUploadSettings.StoragePath" value="c:\files\fastupload" />
+    <add key="FastUploadSettings.Tokens" value="" />
+    <add key="FastUploadSettings.Domains" value=""/>
+  </appSettings>
+  <system.webServer>
+    <modules runAllManagedModulesForAllRequests="true" />
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0"/>
+    </handlers>
+  </system.webServer>
+</configuration>
