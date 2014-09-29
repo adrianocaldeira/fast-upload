@@ -142,6 +142,8 @@
     <None Include="Controllers\FilesController.cs.pp" />
     <Compile Include="Controllers\FilesController.cs" />
     <None Include="Controllers\UploadsController.cs.pp" />
+    <None Include="Controllers\HomeController.cs.pp" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UploadsController.cs" />
     <None Include="Filters\FastUploadSecurityAttribute.cs.pp" />
     <None Include="FastUploadSettings.cs.pp" />
@@ -174,7 +176,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Home\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

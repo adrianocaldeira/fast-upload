@@ -28,6 +28,11 @@ namespace $rootnamespace$
             RouteTable.Routes.LowercaseUrls = true;
             RouteTable.Routes.MapMvcAttributeRoutes();
             RouteTable.Routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+            RouteTable.Routes.MapRoute(
                 name: "Files-Download",
                 url: "downloads/{*file}",
                 defaults: new {controller = "Files", action = "Download"}
